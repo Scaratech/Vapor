@@ -1,0 +1,16 @@
+{
+    "type": "module",
+    "scripts": {
+        "build": "bash build.sh",
+        "serve": "node serve.js",
+        "dev": "node dev.js"
+    },
+    "devDependencies": {
+        "esbuild": "^0.25.10",
+        "express": "^5.1.0",
+        "typescript": "^5.9.2"
+    },
+    "dependencies": {
+        "mime": "^4.1.0"
+    }
+}
