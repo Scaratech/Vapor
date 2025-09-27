@@ -52,7 +52,12 @@ function suggestionsHTML(items: GameMeta[]) {
 import { render as renderPlayer } from './player';
 
 export async function render(root: HTMLElement) {
-    const state: BrowseState = { games: await loadMetadata(), filtered: [], query: '' };
+    // Load and sort games A–Z by title (case-insensitive)
+    const games = (await loadMetadata()).slice().sort((a, b) =>
+        (a.title || '').localeCompare(b.title || '', undefined, { sensitivity: 'base' })
+    );
+
+    const state: BrowseState = { games, filtered: [], query: '' };
     state.filtered = state.games;
 
     root.innerHTML = `

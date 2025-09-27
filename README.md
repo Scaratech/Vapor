@@ -43,22 +43,22 @@ Each directory should have an `index.html` file, like this:
 hazel@nightcord:~/ama2$ ls core/fnaf1
 index.html  resources  src
 ```
-Then, in `public/assets/images/` you should have a icon for each image, like this:
+Then, in `public/images/` you should have a icon for each image, like this:
 ```sh
-hazel@nightcord:~/ama2$ ls public/assets/images/
+hazel@nightcord:~/ama2$ ls public/images/
 fnaf1.png  fnaf2.png  fnaf3.png  fnaf4.png  fnaf5.png  fnaf6.png  fnaf7.png
 ```
 Once you've added these, now you need to register the games in the `metadata.json` file:
 ```sh
 $ node scripts/update.js --id="game_id" --name="Game Name"
 ```
-Then, copy over `core/` to `build/`:
-```sh
-$ cp -r core/ build/
-```
-Finally, you can "map" the game assets!
+Then, you need to "map" the game assets
 ```sh
 $ node scripts/mapper.js
+```
+Finally, copy over `core/` to `build/`:
+```sh
+$ cp -r core/ build/
 ```
 ### Building
 ```sh

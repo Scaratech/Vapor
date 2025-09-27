@@ -4,3 +4,6 @@ dist-sw/
 build/
 core/
 games/
+public/images/
+public/map.json
+public/metadata.json

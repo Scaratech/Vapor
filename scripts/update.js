@@ -6,7 +6,7 @@ function createTemplate(name, id) {
     return {
         title: name,
         id: id,
-        image: `/assets/images/${id}.png`
+        image: `/images/${id}.png`
     };
 }
 

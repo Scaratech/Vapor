@@ -13,7 +13,6 @@ const PRECACHE_ASSETS = [
 
 (async () => { self.opfs = await navigator.storage.getDirectory() })();
 
-// Creates file & directory structure in OPFS for a given path
 async function createInOPFS(
     root: FileSystemDirectoryHandle,
     path: string
@@ -52,7 +51,6 @@ async function createInOPFS(
     }
 }
 
-// Downloads all files in PRECACHE_ASSETS to OPFS
 async function preCache() {
     for (const resource of PRECACHE_ASSETS) {
         try {
@@ -104,7 +102,6 @@ async function preCache() {
     }
 }
 
-// OPFS "middleware", Will serve a file from OPFS given a path 
 async function serveOPFS(url: string): Promise<Response> {
     const path = new URL(url).pathname.replace(/^\/fs/, "");
 
@@ -137,7 +134,6 @@ async function serveOPFS(url: string): Promise<Response> {
     }
 }
 
-// Saves a response in OPFS at given path
 async function resToOPFS(path: string, res: Response) {
     const handle = await createInOPFS(self.opfs, `app${path}`);
     const writable = await handle.createWritable();
@@ -162,10 +158,6 @@ self.addEventListener("install", (ev) => {
 
 self.addEventListener("activate", () => { self.clients.claim(); });
 
-/*
-    1. Defines the /fs/ route which can be used to get files from OPFS
-    2. Attempts to serve from OPFS first, then falls back to network, and downloads it (if same origin) for next request
-*/
 self.addEventListener("fetch", (ev) => {
     const url = new URL(ev.request.url);
     const pathname = url.pathname;
@@ -176,6 +168,49 @@ self.addEventListener("fetch", (ev) => {
     }
     if (url.origin !== self.location.origin) {
         ev.respondWith(fetch(ev.request));
+        return;
+    }
+
+    if (pathname.startsWith("/images/")) {
+        const promise = (async () => {
+            try {
+                const parts = pathname.split("/").filter(p => p.length > 0);
+                const fileName = parts.pop();
+
+                let current = self.opfs;
+                for (const part of parts) {
+                    current = await current.getDirectoryHandle(part);
+                }
+
+                const handle = await current.getFileHandle(fileName);
+                const file = await handle.getFile();
+
+                return new Response(file, {
+                    status: 200,
+                    headers: {
+                        "Content-Type": mime.default.getType(file.name) || "application/octet-stream",
+                    }
+                });
+            } catch (err) {
+                const res = await fetch(ev.request);
+
+                if (res.ok) {
+                    try {
+                        const handle = await createInOPFS(self.opfs, pathname);
+                        const writable = await handle.createWritable();
+
+                        await writable.write(await res.arrayBuffer());
+                        await writable.close();
+                    } catch (err) {
+                        console.warn('[sw] failed to cache image:', err);
+                    }
+                }
+
+                return res;
+            }
+        })();
+
+        ev.respondWith(promise);
         return;
     }
 
