@@ -74,25 +74,40 @@ export async function render(root: HTMLElement) {
     const searchBox = search.parentElement as HTMLElement;
 
     const onSelectGame = (id: string) => {
+        try {
+            history.pushState({ game: id }, '', `?game=${encodeURIComponent(id)}`);
+        } catch { }
+
         const mount = root.closest('#app') as HTMLElement || root;
         mount.classList.remove('view-enter');
         mount.classList.add('view-exit');
+
         const done = () => {
             mount.classList.remove('view-exit');
+
             renderPlayer(mount, id, () => {
+                try { 
+                    history.pushState({ page: 'browse' }, '', `?page=browse`); 
+                } catch { }
+
                 mount.classList.remove('view-enter');
                 mount.classList.add('view-exit');
+
                 const backDone = () => {
                     mount.classList.remove('view-exit');
                     render(mount);
+
                     requestAnimationFrame(() => mount.classList.add('view-enter'));
                     mount.removeEventListener('animationend', backDone);
                 };
+
                 mount.addEventListener('animationend', backDone, { once: true });
             });
+
             requestAnimationFrame(() => mount.classList.add('view-enter'));
             mount.removeEventListener('animationend', done);
         };
+
         mount.addEventListener('animationend', done, { once: true });
     };
 

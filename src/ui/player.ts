@@ -76,7 +76,10 @@ export async function render(root: HTMLElement, id: string, onBack?: () => void)
     const progress = root.querySelector<HTMLDivElement>('#progress')!;
     const bar = root.querySelector<HTMLDivElement>('#bar')!;
 
-    back.addEventListener('click', () => onBack?.());
+    back.addEventListener('click', () => {
+        try { history.pushState({ page: 'browse' }, '', `?page=browse`); } catch {}
+        onBack?.();
+    });
 
     fsBtn.addEventListener('click', async () => {
         const elem = frame as any as HTMLElement;
