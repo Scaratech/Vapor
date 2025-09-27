@@ -10,11 +10,12 @@ $ git clone https://github.com/scaratech/Vapor
 $ cd Vapor
 $ pnpm i
 # Make sure all your games are in the `games/` folder (Formatted like `games/<game_id>/`) and yes index.html has to be the entry point
-# To generate proper metadata you can manually edit `public/metadata.json` or:
 $ mkdir build
+# To generate proper metadata you can manually edit `public/metadata.json` or:
 $ node scripts/update.js --name="Game Name" --id="game_id"
-$ node scripts/mapper.js
 $ pnpm build
+# You need to manually copy over `games/` to `build/`
+$ node scripts/mapper.js
 $ pnpm serve
 # Or pnpm dev
 ```

@@ -2,8 +2,38 @@
     "games": [
         {
             "title": "Five Nights at Freddy's",
-            "id": "FNAF",
-            "image": "/assets/images/FNAF.png"
+            "id": "fnaf1",
+            "image": "/assets/images/fnaf1.png"
+        },
+        {
+            "title": "Five Nights at Freddy's 2",
+            "id": "fnaf2",
+            "image": "/assets/images/fnaf2.png"
+        },
+        {
+            "title": "Five Nights at Freddy's 3",
+            "id": "fnaf3",
+            "image": "/assets/images/fnaf3.png"
+        },
+        {
+            "title": "Five Nights at Freddy's 4",
+            "id": "fnaf4",
+            "image": "/assets/images/fnaf4.png"
+        },
+        {
+            "title": "Five Nights at Freddy's 5",
+            "id": "fnaf5",
+            "image": "/assets/images/fnaf5.png"
+        },
+        {
+            "title": "Five Nights at Freddy's 6",
+            "id": "fnaf6",
+            "image": "/assets/images/fnaf6.png"
+        },
+        {
+            "title": "Five Nights at Freddy's 7",
+            "id": "fnaf7",
+            "image": "/assets/images/fnaf7.png"
         }
     ]
 }
