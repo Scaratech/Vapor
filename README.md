@@ -4,7 +4,7 @@ The unblocked games website for the rest of us
 > Currently Vapor does **not** have a public demo, nor are the games themselves. This is so I don't get DMCAd!
 
 ## What Exactly is Vapor?
-Vapor is a games website focused on providing a high quality experience and high quality games. What makes Vapor different is its offline support, you can download games to the browers built-in storage (OPFS) and play all the games available fully offline (sometimes this can even work to bypass web-filters). Vapor also provides a high quality selection of games, mainly WASM ports, not the regular slop you would find on game websites. 
+Vapor is a games website focused on providing a high quality experience and high quality games. What makes Vapor different is its offline support, you can download games to the browers built-in storage (OPFS) and play all the games available fully offline (sometimes this can even work to bypass web-filters). Vapor also provides a high quality selection of games, mainly WASM ports, not the regular slop you would find on other game websites. 
 
 ![Screenshot](./assets/ss1.png) | ![Screenshot 2](./assets/ss2.png) |
 | --- | --- |
