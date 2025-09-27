@@ -1,0 +1,159 @@
+{
+    "games": [
+        {
+            "title": "Five Nights at Freddy's",
+            "id": "fnaf1",
+            "image": "/images/fnaf1.png"
+        },
+        {
+            "title": "Five Nights at Freddy's 2",
+            "id": "fnaf2",
+            "image": "/images/fnaf2.png"
+        },
+        {
+            "title": "Five Nights at Freddy's 3",
+            "id": "fnaf3",
+            "image": "/images/fnaf3.png"
+        },
+        {
+            "title": "Five Nights at Freddy's 4",
+            "id": "fnaf4",
+            "image": "/images/fnaf4.png"
+        },
+        {
+            "title": "Five Nights at Freddy's 5",
+            "id": "fnaf5",
+            "image": "/images/fnaf5.png"
+        },
+        {
+            "title": "Five Nights at Freddy's 6",
+            "id": "fnaf6",
+            "image": "/images/fnaf6.png"
+        },
+        {
+            "title": "Five Nights at Freddy's 7",
+            "id": "fnaf7",
+            "image": "/images/fnaf7.png"
+        },
+        {
+            "title": "Amanda the Adventurer",
+            "id": "amanda",
+            "image": "/images/amanda.png"
+        },
+        {
+            "title": "Baldi's Basics Plus",
+            "id": "baldi-plus",
+            "image": "/images/baldi-plus.png"
+        },
+        {
+            "title": "Baldi's Basics Remastered",
+            "id": "baldi-remastered",
+            "image": "/images/baldi-remastered.png"
+        },
+        {
+            "title": "Bendy and the Ink Machine",
+            "id": "bendy",
+            "image": "/images/bendy.png"
+        },
+        {
+            "title": "Class of '09",
+            "id": "co09",
+            "image": "/images/co09.png"
+        },
+        {
+            "title": "Cuphead",
+            "id": "cuphead",
+            "image": "/images/cuphead.png"
+        },
+        {
+            "title": "Deltarune",
+            "id": "deltarune",
+            "image": "/images/deltarune.png"
+        },
+        {
+            "title": "Undertale",
+            "id": "undertale",
+            "image": "/images/undertale.png"
+        },
+        {
+            "title": "Undertale Yellow",
+            "id": "undertale-yellow",
+            "image": "/images/undertale-yellow.png"
+        },
+        {
+            "title": "Fears to Fathom; Home Alone",
+            "id": "ftf_ha",
+            "image": "/images/ftf_ha.png"
+        },
+        {
+            "title": "Hotline Miami",
+            "id": "hotline_miami",
+            "image": "/images/hotline_miami.png"
+        },
+        {
+            "title": "Kindergarten 1",
+            "id": "kindergarten",
+            "image": "/images/kindergarten.png"
+        },
+        {
+            "title": "Kindergarten 2",
+            "id": "kindergarten_2",
+            "image": "/images/kindergarten_2.png"
+        },
+        {
+            "title": "Five Nights at Freddy's 4 Halloween",
+            "id": "fnaf4_h",
+            "image": "/images/fnaf4_h.png"
+        },
+        {
+            "title": "FNAF World",
+            "id": "fnaf_world",
+            "image": "/images/fnaf_world.png"
+        },
+        {
+            "title": "Karlson",
+            "id": "karlson",
+            "image": "/images/karlson.png"
+        },
+        {
+            "title": "People Playground",
+            "id": "people_playground",
+            "image": "/images/people_playground.png"
+        },
+        {
+            "title": "Omori",
+            "id": "omori",
+            "image": "/images/omori.png"
+        },
+        {
+            "title": "Pizza Tower",
+            "id": "pizza_tower",
+            "image": "/images/pizza_tower.png"
+        },
+        {
+            "title": "Raft",
+            "id": "raft",
+            "image": "/images/raft.png"
+        },
+        {
+            "title": "Slender and the 8 Pages",
+            "id": "slender",
+            "image": "/images/slender.png"
+        },
+        {
+            "title": "Ultrakill",
+            "id": "ultrakill",
+            "image": "/images/ultrakill.png"
+        },
+        {
+            "title": "Yume Nikki",
+            "id": "yume_nikki",
+            "image": "/images/yume_nikki.png"
+        },
+        {
+            "title": "Buckshot Roulette",
+            "id": "buckshot_roulette",
+            "image": "/images/buckshot_roulette.png"
+        }
+    ]
+}
