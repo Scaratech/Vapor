@@ -1,21 +1,72 @@
 # Vapor
-Vapor is a games website focused on providing a high quality experience and high quality games. What makes Vapor different is its offline support, you can download games to the browers built-in storage (OPFS) and play all the games available fully offline (sometimes this can even work to bypass web-filters). Vapor also provides a high quality selection of games, mainly WASM ports, not the regular slop you would find on game websites. 
+The unblocked games website for the rest of us
 >[!WARNING]
-> Vapor does **NOT** provide an official demo nor does it provide the games itself. This is because most WASM ports do not provide a way to verify you own the game, which leads to piracy, and to avoid DMCAs this is a precaution that has to be taken.
+> Currently Vapor does **not** have a public demo, nor are the games themselves. This is so I don't get DMCAd!
+
+## What Exactly is Vapor?
+Vapor is a games website focused on providing a high quality experience and high quality games. What makes Vapor different is its offline support, you can download games to the browers built-in storage (OPFS) and play all the games available fully offline (sometimes this can even work to bypass web-filters). Vapor also provides a high quality selection of games, mainly WASM ports, not the regular slop you would find on game websites. 
+
+![Screenshot](./assets/ss1.png) | ![Screenshot 2](./assets/ss2.png) |
+| --- | --- |
 
 ## Setup
+Requirements:
+- A UNIX-like shell
+- NodeJS
+- PNPM (`npm i -g pnpm`)
+- Git
+
+### Clone the Repo
 ```sh
-# Requirements: Linux or MacOS (WSL works fine, you just need bash or a UNIX-like shell), NodeJS, PNPM (npm i -g pnpm)
-$ git clone https://github.com/scaratech/Vapor
-$ cd Vapor
+$ git clone https://github.com/scaratech/vapor
+$ cd vapor
+```
+### Install Dependencies
+```sh
 $ pnpm i
-# Make sure all your games are in the `games/` folder (Formatted like `games/<game_id>/`) and yes index.html has to be the entry point
 $ mkdir build
-# To generate proper metadata you can manually edit `public/metadata.json` or:
-$ node scripts/update.js --name="Game Name" --id="game_id"
-$ pnpm build
-# You need to manually copy over `games/` to `build/`
+```
+### Add Games
+>[!IMPORTANT]
+>Each game should have its directory as the game ID and the games icon should be `game_id.png`
+```sh
+$ mkdir games
+```
+Then place all of your games in that directory like this:
+```sh
+hazel@nightcord:~/ama2$ ls games/
+fnaf1  fnaf2  fnaf3  fnaf4  fnaf5  fnaf6  fnaf7
+```
+Each directory should have an `index.html` file, like this:
+```sh
+hazel@nightcord:~/ama2$ ls games/fnaf1
+index.html  resources  src
+```
+Then, in `public/assets/images/` you should have a icon for each image, like this:
+```sh
+hazel@nightcord:~/ama2$ ls public/assets/images/
+fnaf1.png  fnaf2.png  fnaf3.png  fnaf4.png  fnaf5.png  fnaf6.png  fnaf7.png
+```
+Once you've added these, now you need to register the games in the `metadata.json` file:
+```sh
+$ node scripts/update.js --id="game_id" --name="Game Name"
+```
+Then, copy over `games/` to `build/`:
+```sh
+$ cp -r games/ build/`
+```
+Finally, you can "map" the game assets!
+```sh
 $ node scripts/mapper.js
+```
+### Building
+```sh
+$ pnpm build
+```
+
+### Starting
+```sh
 $ pnpm serve
-# Or pnpm dev
+# Or, start the dev server:
+$ pnpm dev
 ```
