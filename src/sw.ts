@@ -7,7 +7,7 @@ import * as mime from "mime";
 const PRECACHE_ASSETS = [
     '/', 
     '/index.html', 
-    '/index.css', 
+    '/index.css', '/styles/global.css', '/styles/landing.css', '/styles/browse.css',
     /*'/sw.js',*/ '/index.js'
 ];
 

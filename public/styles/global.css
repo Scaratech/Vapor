@@ -28,6 +28,7 @@
 
     --font-display: 'Jersey 20', system-ui, sans-serif;
     --font-body: 'Open Sans', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, sans-serif;
+    --anim: cubic-bezier(.2,.8,.2,1);
 }
 
 * {
@@ -69,3 +70,9 @@ a {
     white-space: nowrap;
     border: 0
 }
+
+/* cross-view transitions */
+.view-enter{animation: viewIn 260ms var(--anim) both}
+.view-exit{animation: viewOut 220ms var(--anim) both}
+@keyframes viewIn{from{opacity:0; transform: translateY(6px) scale(.98)} to{opacity:1; transform:none}}
+@keyframes viewOut{from{opacity:1; transform:none} to{opacity:0; transform: translateY(6px) scale(.98)}}

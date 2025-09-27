@@ -1,5 +1,6 @@
 import { FileSystem, dlGame } from "./fs";
 import { render as renderLanding } from "./ui/landing";
+import { render as renderBrowse } from "./ui/browse";
 
 declare global {
     interface Window {
@@ -18,7 +19,23 @@ async function setup() {
     window.$dl = dlGame;
 
     const app = document.getElementById('app')!;
-    renderLanding(app);
+
+    const transitionTo = (next: () => void) => {
+        app.classList.remove('view-enter');
+        app.classList.add('view-exit');
+
+        const done = () => {
+            app.classList.remove('view-exit');
+            next();
+
+            requestAnimationFrame(() => app.classList.add('view-enter'));
+            app.removeEventListener('animationend', done);
+        };
+
+        app.addEventListener('animationend', done, { once: true });
+    };
+
+    renderLanding(app, () => transitionTo(() => renderBrowse(app)));
 }
 
 setup();

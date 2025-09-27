@@ -1,4 +1,4 @@
-export function renderLanding(root: HTMLElement, onStart?: () => void) {
+export function render(root: HTMLElement, onStart?: () => void) {
     root.innerHTML = `
     <main class="landing" role="main">
       <div class="sparkle" aria-hidden="true"></div>
@@ -10,7 +10,7 @@ export function renderLanding(root: HTMLElement, onStart?: () => void) {
         </div>
       </div>
     </main>
-    <div class="site-footer">© Scaratek 2025 · <a href="https://github.com/scaratech/vapor" target="_blank" rel="noreferrer noopener">Repo</a></div>
+  <div class="site-footer">© Scaratek 2025 · <a href="https://github.com/scaratech/ama2" target="_blank" rel="noreferrer noopener">Repo</a></div>
   `;
 
     const btn = root.querySelector('#get-started') as HTMLButtonElement | null;
