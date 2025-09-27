@@ -52,7 +52,6 @@ function suggestionsHTML(items: GameMeta[]) {
 import { render as renderPlayer } from './player';
 
 export async function render(root: HTMLElement) {
-    // Load and sort games A–Z by title (case-insensitive)
     const games = (await loadMetadata()).slice().sort((a, b) =>
         (a.title || '').localeCompare(b.title || '', undefined, { sensitivity: 'base' })
     );
