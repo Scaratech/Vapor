@@ -70,3 +70,6 @@ $ pnpm serve
 # Or, start the dev server:
 $ pnpm dev
 ```
+
+## TODO
+- [ ] Obfuscate keywords and change the search params to be more obfuscated (To prevent automatic filtering)
