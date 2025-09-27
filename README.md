@@ -53,7 +53,7 @@ $ node scripts/update.js --id="game_id" --name="Game Name"
 ```
 Then, copy over `games/` to `build/`:
 ```sh
-$ cp -r games/ build/`
+$ cp -r games/ build/
 ```
 Finally, you can "map" the game assets!
 ```sh
