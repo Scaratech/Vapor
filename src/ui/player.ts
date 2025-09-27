@@ -19,7 +19,7 @@ async function loadGameMeta(id: string): Promise<GameMeta | undefined> {
 }
 
 function tpl(meta: GameMeta, installed: boolean) {
-    const src = installed ? `/fs/games/${meta.id}/index.html` : `/games/${meta.id}/index.html`;
+    const src = installed ? `/fs/core/${meta.id}/index.html` : `/core/${meta.id}/index.html`;
 
     return `
   <section class="player">
@@ -35,7 +35,7 @@ function tpl(meta: GameMeta, installed: boolean) {
 
     <div class="stage">
       <div class="frame-wrap">
-        <iframe id="game-frame" src="${src}" title="${meta.title}" allow="fullscreen" loading="lazy"></iframe>
+            <iframe id="game-frame" src="${src}" title="${meta.title}" allow="autoplay; fullscreen; gamepad; keyboard-map" allowfullscreen tabindex="0" loading="lazy"></iframe>
       </div>
     </div>
 
@@ -57,7 +57,7 @@ function tpl(meta: GameMeta, installed: boolean) {
 
 async function isInstalled(id: string): Promise<boolean> {
     try {
-        return await window.$fs.exists(`/games/${id}/index.html`);
+        return await window.$fs.exists(`/core/${id}/index.html`);
     } catch {
         return false;
     }
@@ -75,9 +75,22 @@ export async function render(root: HTMLElement, id: string, onBack?: () => void)
     const frame = root.querySelector<HTMLIFrameElement>('#game-frame')!;
     const progress = root.querySelector<HTMLDivElement>('#progress')!;
     const bar = root.querySelector<HTMLDivElement>('#bar')!;
+    const frameWrap = root.querySelector<HTMLDivElement>('.frame-wrap')!;
+
+    const focusFrame = () => {
+        try {
+            frame.focus();
+            frame.contentWindow?.focus?.();
+        } catch {}
+    };
+
+    focusFrame();
 
     back.addEventListener('click', () => {
-        try { history.pushState({ page: 'browse' }, '', `?page=browse`); } catch {}
+        try { 
+            history.pushState({ page: 'browse' }, '', `?page=browse`); 
+        } catch { }
+        
         onBack?.();
     });
 
@@ -88,6 +101,7 @@ export async function render(root: HTMLElement, id: string, onBack?: () => void)
         try {
             if (!document.fullscreenElement) {
                 await elem.requestFullscreen?.();
+                focusFrame();
             } else {
                 await doc.exitFullscreen?.();
             }
@@ -96,7 +110,7 @@ export async function render(root: HTMLElement, id: string, onBack?: () => void)
 
     const setInstalled = async (flag: boolean) => {
         installBtn.textContent = flag ? 'Uninstall' : 'Install';
-        frame.src = flag ? `/fs/games/${id}/index.html` : `/games/${id}/index.html`;
+        frame.src = flag ? `/fs/core/${id}/index.html` : `/core/${id}/index.html`;
     };
 
     installBtn.addEventListener('click', async () => {
@@ -107,7 +121,7 @@ export async function render(root: HTMLElement, id: string, onBack?: () => void)
             installBtn.disabled = true;
 
             try {
-                await window.$fs.rm(`/games/${id}`);
+                await window.$fs.rm(`/core/${id}`);
                 await setInstalled(false);
             } finally {
                 installBtn.disabled = false;
@@ -146,10 +160,22 @@ export async function render(root: HTMLElement, id: string, onBack?: () => void)
             progress.hidden = true;
             await setInstalled(true);
             installBtn.textContent = 'Uninstall';
+            focusFrame();
         } catch (e) {
             installBtn.textContent = 'Install';
         } finally {
             installBtn.disabled = false;
         }
+    });
+
+    frame.addEventListener('load', () => focusFrame());
+    frameWrap.addEventListener('click', () => focusFrame());
+    frameWrap.addEventListener('pointerdown', () => focusFrame(), { passive: true });
+    frameWrap.addEventListener('mouseenter', () => focusFrame());
+    document.addEventListener('fullscreenchange', () => {
+        if (document.fullscreenElement === frame) focusFrame();
+    });
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) focusFrame();
     });
 }

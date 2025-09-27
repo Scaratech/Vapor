@@ -1,7 +1,7 @@
 import { readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const GAMES_DIR = './build/games';
+const GAMES_DIR = './build/core';
 const OUTPUT_FILE = './build/map.json';
 
 function getAllFiles(dirPath, relativePath = '') {

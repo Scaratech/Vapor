@@ -297,7 +297,7 @@ export async function dlGame(
             throw new Error(`Game with ID '${id}' not found`);
         }
 
-        const base = `/games/${id}`;
+        const base = `/core/${id}`;
         await window.$fs.mkdir(base);
 
         let count = 0;

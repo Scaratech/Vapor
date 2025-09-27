@@ -29,17 +29,18 @@ $ mkdir build
 ### Add Games
 >[!IMPORTANT]
 >Each game should have its directory as the game ID and the games icon should be `game_id.png`
+>Also, the directory is named `core` instead of `game` to help with automatic filter detection
 ```sh
-$ mkdir games
+$ mkdir core
 ```
 Then place all of your games in that directory like this:
 ```sh
-hazel@nightcord:~/ama2$ ls games/
+hazel@nightcord:~/ama2$ ls core/
 fnaf1  fnaf2  fnaf3  fnaf4  fnaf5  fnaf6  fnaf7
 ```
 Each directory should have an `index.html` file, like this:
 ```sh
-hazel@nightcord:~/ama2$ ls games/fnaf1
+hazel@nightcord:~/ama2$ ls core/fnaf1
 index.html  resources  src
 ```
 Then, in `public/assets/images/` you should have a icon for each image, like this:
@@ -51,9 +52,9 @@ Once you've added these, now you need to register the games in the `metadata.jso
 ```sh
 $ node scripts/update.js --id="game_id" --name="Game Name"
 ```
-Then, copy over `games/` to `build/`:
+Then, copy over `core/` to `build/`:
 ```sh
-$ cp -r games/ build/
+$ cp -r core/ build/
 ```
 Finally, you can "map" the game assets!
 ```sh
