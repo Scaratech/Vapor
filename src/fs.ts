@@ -216,7 +216,7 @@ export class FileSystem {
         }
     }
 
-    async fetch(url: string, path: string): Promise<void> {
+    async fetch(url: string, path: string, onProgress?: (loaded: number, total: number) => void): Promise<void> {
         try {
             const response = await fetch(url);
 
@@ -224,15 +224,61 @@ export class FileSystem {
                 throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
             }
 
-            const content = await response.arrayBuffer();
-            await this.write(path, content);
+            const total = Number(response.headers.get('Content-Length') || '0');
+            const target = this.normalizePath(path);
+            const parts = target.split("/").filter(p => p.length > 0);
+            const fileName = parts.pop()!;
+            let current = this.root;
+
+            for (const part of parts) {
+                current = await current.getDirectoryHandle(part, { create: true });
+            }
+
+            const fileHandle = await current.getFileHandle(fileName, { create: true });
+            const writable = await fileHandle.createWritable();
+
+            if (response.body && 'getReader' in response.body) {
+                const reader = response.body.getReader();
+                let loaded = 0;
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    if (value) {
+                        await writable.write(value);
+
+                        loaded += value.byteLength;
+                        onProgress?.(loaded, total);
+                    }
+                }
+
+                await writable.close();
+            } else {
+                const content = await response.arrayBuffer();
+
+                await writable.write(content);
+                await writable.close();
+
+                onProgress?.(content.byteLength, total || content.byteLength);
+            }
         } catch (err) {
             throw new Error(`Failed to fetch ${url}: ${err.message}`);
         }
     }
 }
 
-export async function dlGame(id: string): Promise<void> {
+export async function dlGame(
+    id: string,
+    onProgress?: 
+        (ev: {
+            file: string;
+            loaded: number;
+            total: number;
+            filesDone: number;
+            filesTotal: number; 
+        }) => void
+    ): Promise<void> {
     if (!window.$fs) {
         throw new Error('FS not initialized');
     }
@@ -254,8 +300,6 @@ export async function dlGame(id: string): Promise<void> {
         const base = `/games/${id}`;
         await window.$fs.mkdir(base);
 
-        console.log(`Downloading game '${id}' with ${game.files.length} files...`);
-
         let count = 0;
         const total = game.files.filter((file: string) => !file.endsWith('/')).length;
 
@@ -267,16 +311,15 @@ export async function dlGame(id: string): Promise<void> {
 
                 const url = `${base}/${file}`;
 
-                await window.$fs.fetch(url, url);
-                count++;
+                await window.$fs.fetch(url, url, (loaded, totalBytes) => {
+                    onProgress?.({ file, loaded, total: totalBytes, filesDone: count, filesTotal: total });
+                });
 
-                console.log(`Downloaded ${count}/${total}: ${file}`);
+                count++;
             } catch (err) {
                 console.warn(`Failed to download ${file}:`, err.message);
             }
         }
-
-        console.log(`Game '${id}' downloaded successfully! ${count}/${total} files`);
     } catch (err) {
         throw new Error(`Failed to download game '${id}': ${err.message}`);
     }

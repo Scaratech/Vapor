@@ -12,7 +12,7 @@ $ pnpm i
 # Make sure all your games are in the `games/` folder (Formatted like `games/<game_id>/`) and yes index.html has to be the entry point
 # To generate proper metadata you can manually edit `public/metadata.json` or:
 $ mkdir build
-$ node scripts/update.js --name="Game Name" --id="game_id" --desc="Optional description"
+$ node scripts/update.js --name="Game Name" --id="game_id"
 $ node scripts/mapper.js
 $ pnpm build
 $ pnpm serve

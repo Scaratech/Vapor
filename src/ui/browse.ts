@@ -1,9 +1,7 @@
 export type GameMeta = {
     title: string;
     id: string;
-    description?: string;
     image?: string;
-    url?: string;
 };
 
 type BrowseState = {
@@ -51,6 +49,8 @@ function suggestionsHTML(items: GameMeta[]) {
   `;
 }
 
+import { render as renderPlayer } from './player';
+
 export async function render(root: HTMLElement) {
     const state: BrowseState = { games: await loadMetadata(), filtered: [], query: '' };
     state.filtered = state.games;
@@ -74,7 +74,26 @@ export async function render(root: HTMLElement) {
     const searchBox = search.parentElement as HTMLElement;
 
     const onSelectGame = (id: string) => {
-        console.log('[browse] select', id);
+        const mount = root.closest('#app') as HTMLElement || root;
+        mount.classList.remove('view-enter');
+        mount.classList.add('view-exit');
+        const done = () => {
+            mount.classList.remove('view-exit');
+            renderPlayer(mount, id, () => {
+                mount.classList.remove('view-enter');
+                mount.classList.add('view-exit');
+                const backDone = () => {
+                    mount.classList.remove('view-exit');
+                    render(mount);
+                    requestAnimationFrame(() => mount.classList.add('view-enter'));
+                    mount.removeEventListener('animationend', backDone);
+                };
+                mount.addEventListener('animationend', backDone, { once: true });
+            });
+            requestAnimationFrame(() => mount.classList.add('view-enter'));
+            mount.removeEventListener('animationend', done);
+        };
+        mount.addEventListener('animationend', done, { once: true });
     };
 
     const updateSuggestions = (termRaw: string) => {

@@ -6,9 +6,7 @@ function createTemplate(name, id) {
     return {
         title: name,
         id: id,
-        description: "",
-        image: `/assets/images/${id}.png`,
-        url: `/assets/games/${id}/index.html`
+        image: `/assets/images/${id}.png`
     };
 }
 
@@ -22,8 +20,6 @@ function parseArgs() {
             parsed.title = arg.substring(7);
         } else if (arg.startsWith('--id=')) {
             parsed.id = arg.substring(5);
-        } else if (arg.startsWith('--desc=')) {
-            parsed.desc = arg.substring(7);
         }
     }
     
@@ -34,7 +30,7 @@ const input = parseArgs();
 input.desc = input.desc || "";
 
 if (!input.title || !input.id) {
-    console.log('Usage: node update.js --name="Game Title" --id="game-id" --desc="Optional description"');
+    console.log('Usage: node update.js --name="Game Title" --id="game-id"');
     process.exit(1);
 }
 
