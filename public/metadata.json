@@ -1,0 +1,11 @@
+{
+    "games": [
+        {
+            "title": "FNAF",
+            "id": "fnaf",
+            "description": "",
+            "image": "/assets/images/fnaf.png",
+            "url": "/assets/games/fnaf/index.html"
+        }
+    ]
+}

@@ -1,8 +1,9 @@
-import { FileSystem } from "./fs";
+import { FileSystem, dlGame } from "./fs";
 
 declare global {
     interface Window {
         $fs: FileSystem;
+        $dl: typeof dlGame
     }
 }
 
@@ -11,7 +12,9 @@ async function setup() {
 
     const fs = new FileSystem();
     await fs.init();
+
     window.$fs = fs;
+    window.$dl = dlGame;
 }
 
 setup();
