@@ -7,8 +7,8 @@ import * as mime from "mime";
 const PRECACHE_ASSETS = [
     '/', 
     '/index.html', 
-    '/index.css', '/styles/global.css', '/styles/landing.css', '/styles/browse.css',
-    /*'/sw.js',*/ '/index.js'
+    '/index.css', '/styles/global.css', '/styles/landing.css', '/styles/browse.css', '/styles/player.css',
+    '/index.js'
 ];
 
 (async () => { self.opfs = await navigator.storage.getDirectory() })();

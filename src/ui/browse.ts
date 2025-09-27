@@ -75,7 +75,7 @@ export async function render(root: HTMLElement) {
 
     const onSelectGame = (id: string) => {
         try {
-            history.pushState({ game: id }, '', `?game=${encodeURIComponent(id)}`);
+            history.pushState({ game: id }, '', `?id=${encodeURIComponent(id)}`);
         } catch { }
 
         const mount = root.closest('#app') as HTMLElement || root;

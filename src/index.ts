@@ -1,4 +1,5 @@
 import { FileSystem, dlGame } from "./fs";
+import { obfuscator } from "./obfuscate";
 import { render as renderLanding } from "./ui/landing";
 import { render as renderBrowse } from "./ui/browse";
 import { render as renderPlayer } from "./ui/player";
@@ -20,6 +21,10 @@ async function setup() {
     window.$dl = dlGame;
 
     const app = document.getElementById('app')!;
+
+    try { 
+        obfuscator(document); 
+    } catch { }
 
     const transitionTo = (next: () => void) => {
         app.classList.remove('view-enter');
@@ -46,7 +51,7 @@ async function setup() {
 
     const route = (animate = false) => {
         const params = new URLSearchParams(location.search);
-        const game = params.get('game');
+        const game = params.get('id');
         const page = (params.get('page') || '').toLowerCase();
 
         if (game) {
