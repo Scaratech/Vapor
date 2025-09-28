@@ -8,7 +8,8 @@ const PRECACHE_ASSETS = [
     '/', 
     '/index.html', 
     '/index.css', '/styles/global.css', '/styles/landing.css', '/styles/browse.css', '/styles/player.css',
-    '/index.js'
+    '/index.js',
+    '/map.json', '/metadata.json'
 ];
 
 (async () => { self.opfs = await navigator.storage.getDirectory() })();
