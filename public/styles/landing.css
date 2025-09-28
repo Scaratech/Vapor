@@ -62,7 +62,7 @@
 }
 
 .landing .cta {
-    margin-top: 28px
+    margin-top: 28px;
 }
 
 .landing .btn {
@@ -95,11 +95,11 @@
     color: var(--ctp-overlay2);
 }
 
-.site-footer a {
+a {
     color: var(--ctp-overlay2);
-    border-bottom: 1px dotted var(--ctp-overlay2)
+    border-bottom: 1px dotted var(--ctp-overlay2);
 }
 
-.site-footer a:hover {
+a:hover {
     color: var(--ctp-text)
 }
